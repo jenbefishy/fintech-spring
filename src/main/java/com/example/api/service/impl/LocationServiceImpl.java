@@ -17,8 +17,9 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void createLocation(LocationModel location) {
+    public LocationModel createLocation(LocationModel location) {
         locationRepository.save(location);
+        return location;
     }
 
     @Override
@@ -37,10 +38,11 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void updateLocation(LocationModel location) {
+    public LocationModel updateLocation(LocationModel location) {
         if (location.getId() == null) {
             throw new IllegalArgumentException("Location ID cannot be null for update.");
         }
         locationRepository.update(location);
+        return location;
     }
 }

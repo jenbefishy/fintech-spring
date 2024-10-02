@@ -16,6 +16,4 @@ public class LocationModel {
     private Long id;
     private String slug;
     private String name;
-
-
 }
