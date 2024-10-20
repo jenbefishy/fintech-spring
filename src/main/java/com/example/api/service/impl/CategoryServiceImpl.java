@@ -2,7 +2,6 @@ package com.example.api.service.impl;
 
 import com.example.api.repository.CategoryRepository;
 import com.example.api.model.CategoryModel;
-import com.example.api.repository.impl.InMemoryCategoryRepository;
 import com.example.api.service.CategoryService;
 import org.springframework.stereotype.Service;
 
@@ -35,17 +34,24 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public void deleteCategory(Long id) {
-        CategoryModel category = categoryRepository.findById(id).orElse(null);
-        assert category != null;
-        categoryRepository.delete(category.getId());
+    public void deleteById(Long id) {
+        if (categoryRepository.findById(id).isPresent()) {
+            categoryRepository.delete(id);
+        } else {
+            throw new RuntimeException("Category not found with id " + id);
+        }
     }
 
     @Override
-    public void updateCategory(CategoryModel category) {
-        if (category.getId() == null) {
-            throw new IllegalArgumentException("Category ID cannot be null for update.");
+    public CategoryModel updateCategory(Long id, CategoryModel updatedCategory) {
+        Optional<CategoryModel> existingCategoryOpt = categoryRepository.findById(id);
+        if (existingCategoryOpt.isPresent()) {
+            CategoryModel existingCategory = existingCategoryOpt.get();
+            existingCategory.setSlug(updatedCategory.getSlug());
+            existingCategory.setName(updatedCategory.getName());
+            return categoryRepository.save(existingCategory);
+        } else {
+            throw new RuntimeException("Category not found with id " + id);
         }
-        categoryRepository.update(category);
     }
 }

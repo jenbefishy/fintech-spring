@@ -19,7 +19,6 @@ public class CategoryModel {
     private String name;
 
     public CategoryModel() {
-
     }
 
 }
