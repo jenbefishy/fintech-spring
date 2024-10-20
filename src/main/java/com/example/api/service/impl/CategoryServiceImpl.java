@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
             CategoryModel existingCategory = existingCategoryOpt.get();
             existingCategory.setSlug(updatedCategory.getSlug());
             existingCategory.setName(updatedCategory.getName());
-            return categoryRepository.save(existingCategory); // Сохраняем обновленную категорию
+            return categoryRepository.save(existingCategory);
         } else {
             throw new RuntimeException("Category not found with id " + id);
         }
