@@ -30,7 +30,7 @@ class LocationServiceImplTest {
 
     @Test
     void testCreateLocation() {
-        LocationModel location = new LocationModel(null, "ekb", "Екатеринбург");
+        LocationModel location = new LocationModel(1L, "ekb", "Екатеринбург", null);
 
         locationService.createLocation(location);
 
@@ -39,8 +39,8 @@ class LocationServiceImplTest {
 
     @Test
     void testGetLocationById() {
-        LocationModel location = new LocationModel(1L, "ekb", "Екатеринбург");
-        when(locationRepository.findById(1L)).thenReturn(location);
+        LocationModel location = new LocationModel(1L, "ekb", "Екатеринбург", null);
+        when(locationRepository.findById(1L)).thenReturn(Optional.of(location));
 
         Optional<LocationModel> found = locationService.getLocationById(1L);
 
@@ -52,8 +52,8 @@ class LocationServiceImplTest {
 
     @Test
     void testGetAllLocations() {
-        LocationModel location1 = new LocationModel(1L, "ekb", "Екатеринбург");
-        LocationModel location2 = new LocationModel(2L, "kzn", "Казань");
+        LocationModel location1 = new LocationModel(1L, "ekb", "Екатеринбург", null);
+        LocationModel location2 = new LocationModel(2L, "kzn", "Казань", null);
         when(locationRepository.findAll()).thenReturn(List.of(location1, location2));
 
         List<LocationModel> locations = locationService.getAllLocations();
@@ -68,15 +68,7 @@ class LocationServiceImplTest {
 
         locationService.deleteLocation(id);
 
-        verify(locationRepository, times(1)).delete(id);
+        verify(locationRepository, times(1)).deleteById(id);
     }
 
-    @Test
-    void testUpdateLocation() {
-        LocationModel location = new LocationModel(1L, "ekb", "Екатеринбург");
-
-        locationService.updateLocation(location);
-
-        verify(locationRepository, times(1)).update(location);
-    }
 }

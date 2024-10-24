@@ -59,8 +59,8 @@ class KudagoServiceTest {
 
     @Test
     void testFetchEvents_Success() {
-        EventModel event1 = new EventModel("Title1", "Price 1");
-        EventModel event2 = new EventModel("Title2", "Price 2");
+        EventModel event1 = new EventModel(1L, "Title1", "Price 1", null);
+        EventModel event2 = new EventModel(2L, "Title2", "Price 2", null);
         EventResponse mockResponse = new EventResponse(Arrays.asList(event1, event2));
 
         when(restTemplate.getForObject(anyString(), eq(EventResponse.class))).thenReturn(mockResponse);

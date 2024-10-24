@@ -39,8 +39,8 @@ public class LocationControllerTest {
 
     @Test
     public void testGetAllLocations() throws Exception {
-        LocationModel location1 = new LocationModel(1L, "slug1", "Location 1");
-        LocationModel location2 = new LocationModel(2L, "slug2", "Location 2");
+        LocationModel location1 = new LocationModel(1L, "slug1", "Location 1", null);
+        LocationModel location2 = new LocationModel(2L, "slug2", "Location 2", null);
 
         when(locationService.getAllLocations()).thenReturn(Arrays.asList(location1, location2));
 
@@ -57,7 +57,7 @@ public class LocationControllerTest {
 
     @Test
     public void testGetLocationFound() throws Exception {
-        LocationModel location = new LocationModel(1L, "slug1", "Location 1");
+        LocationModel location = new LocationModel(1L, "slug1", "Location 1", null);
 
         when(locationService.getLocationById(anyLong())).thenReturn(Optional.of(location));
 
@@ -72,7 +72,7 @@ public class LocationControllerTest {
 
     @Test
     public void testCreateLocation() throws Exception {
-        LocationModel location = new LocationModel(null, "slug1", "New Location");
+        LocationModel location = new LocationModel(null, "slug1", "New Location", null);
 
         when(locationService.createLocation(any(LocationModel.class))).thenReturn(location);
 
@@ -87,7 +87,7 @@ public class LocationControllerTest {
 
     @Test
     public void testUpdateLocation() throws Exception {
-        LocationModel location = new LocationModel(1L, "slug1", "Updated Location");
+        LocationModel location = new LocationModel(1L, "slug1", "Updated Location", null);
 
         when(locationService.updateLocation(any(LocationModel.class))).thenReturn(location);
 
