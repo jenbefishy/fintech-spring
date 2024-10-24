@@ -1,19 +1,31 @@
 package com.example.api.model;
 
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@jakarta.persistence.Entity
 public class LocationModel {
-    @Id
+    @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Slug cannot be empty")
     private String slug;
+    @NotEmpty(message = "Name cannot be empty")
     private String name;
+
+    @jakarta.persistence.OneToMany(mappedBy = "location", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<EventModel> events;
+
 }
